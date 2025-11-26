@@ -1,0 +1,41 @@
+pipeline:
+  name: Maven-Build-Pipeline
+  identifier: MavenBuildPipeline
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: testGitHubconnector
+        build: <+input>
+  stages:
+    - stage:
+        name: maven-build
+        identifier: mavenbuild
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: maven:3.9.9-openjdk-17
+                    shell: Sh
+                    command: mvn clean test
