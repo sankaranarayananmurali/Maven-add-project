@@ -32,6 +32,8 @@ pipeline:
                   spec:
                     shell: Sh
                     command: echo "excuting pipeline"
+        delegateSelectors:
+          - docker-delegate
   properties:
     ci:
       codebase:
