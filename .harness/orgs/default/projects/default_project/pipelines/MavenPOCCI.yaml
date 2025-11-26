@@ -6,48 +6,34 @@ pipeline:
   description: Maven CI pipeline that installs Maven and JDK on microdnf-based local delegate
   stages:
     - stage:
-        name: Build-and-Test
-        identifier: Build_and_Test
+        name: Echo-Test-CI
+        identifier: EchoTestCI
+        description: ""
         type: CI
         spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
           execution:
             steps:
               - step:
                   type: Run
-                  name: Install
-                  identifier: Install_Java_Maven
+                  name: Run_1
+                  identifier: Run_1
                   spec:
-                    shell: Bash
-                    run: |
-                      echo "Updating microdnf..."
-                      microdnf update -y
-                      echo "Installing Java 17 and Maven..."
-                      microdnf install -y java-17-openjdk maven
-                      echo "Verifying installation..."
-                      java -version
-                      mvn -version
-                    onDelegate: true
-              - step:
-                  type: Run
-                  name: Run Maven Tests
-                  identifier: Run_Maven_Tests
-                  spec:
-                    shell: Bash
-                    run: |
-                      echo "Running Maven clean and tests..."
-                      mvn clean test
-                    onDelegate: true
-          platform:
-            os: Linux
-            arch: Arm64
-          runtime:
-            type: Docker
-            spec: {}
-        delegateSelectors:
-          - docker-delegate
+                    shell: Sh
+                    command: echo "excuting pipeline"
   properties:
     ci:
       codebase:
         connectorRef: testGitHubconnector
         build: <+input>
-        sparseCheckout: []
