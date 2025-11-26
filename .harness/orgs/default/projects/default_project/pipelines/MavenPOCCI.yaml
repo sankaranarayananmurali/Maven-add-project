@@ -3,7 +3,7 @@ pipeline:
   identifier: MavenPOCCI
   projectIdentifier: default_project
   orgIdentifier: default
-  description: Maven CI pipeline using local delegate
+  description: Maven CI pipeline that installs Maven and JDK on microdnf-based local delegate
   stages:
     - stage:
         name: Build-and-Test
@@ -14,12 +14,27 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Clean and Test
-                  identifier: Clean_and_Test
+                  name: Install
+                  identifier: Install_Java_Maven
                   spec:
                     shell: Bash
                     run: |
-                      echo "Running clean and tests..."
+                      echo "Updating microdnf..."
+                      microdnf update -y
+                      echo "Installing Java 17 and Maven..."
+                      microdnf install -y java-17-openjdk maven
+                      echo "Verifying installation..."
+                      java -version
+                      mvn -version
+                    onDelegate: true
+              - step:
+                  type: Run
+                  name: Run Maven Tests
+                  identifier: Run_Maven_Tests
+                  spec:
+                    shell: Bash
+                    run: |
+                      echo "Running Maven clean and tests..."
                       mvn clean test
                     onDelegate: true
           platform:
@@ -30,9 +45,3 @@ pipeline:
             spec: {}
         delegateSelectors:
           - docker-delegate
-  properties:
-    ci:
-      codebase:
-        connectorRef: testGitHubconnector
-        build: <+input>
-        sparseCheckout: []
