@@ -34,6 +34,8 @@ pipeline:
                     command: |-
                       ls -R
                       pwd
+        delegateSelectors:
+          - docker-delegate
   properties:
     ci:
       codebase:
