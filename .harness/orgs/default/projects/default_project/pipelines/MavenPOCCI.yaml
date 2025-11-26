@@ -3,7 +3,7 @@ pipeline:
   identifier: MavenPOCCI
   projectIdentifier: default_project
   orgIdentifier: default
-  description: Simple Maven CI pipeline using local Docker delegate
+  description: Maven CI pipeline using local delegate
   stages:
     - stage:
         name: Build-and-Test
@@ -17,15 +17,14 @@ pipeline:
                   name: Clean and Test
                   identifier: Clean_and_Test
                   spec:
-                    connectorRef: account.harnessImage
-                    image: maven:3.9.3-openjdk-17
-                    shell: Sh
-                    command: mvn clean test
-          cloneCodebase: false
+                    shell: Bash
+                    run: |
+                      echo "Running clean and tests..."
+                      mvn clean test
+                    onDelegate: true
           platform:
             os: Linux
             arch: Arm64
           runtime:
             type: Docker
             spec: {}
-        description: ""
