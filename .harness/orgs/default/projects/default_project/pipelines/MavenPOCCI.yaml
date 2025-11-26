@@ -30,3 +30,9 @@ pipeline:
             spec: {}
         delegateSelectors:
           - docker-delegate
+  properties:
+    ci:
+      codebase:
+        connectorRef: testGitHubconnector
+        build: <+input>
+        sparseCheckout: []
