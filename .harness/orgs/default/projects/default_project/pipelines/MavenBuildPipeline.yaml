@@ -35,8 +35,6 @@ pipeline:
                   name: Run_1
                   identifier: Run_1
                   spec:
-                    connectorRef: account.harnessImage
-                    image: maven:3.9.9-openjdk-17
                     shell: Sh
                     command: mvn clean test
         delegateSelectors:
