@@ -39,3 +39,5 @@ pipeline:
                     image: maven:3.9.9-openjdk-17
                     shell: Sh
                     command: mvn clean test
+        delegateSelectors:
+          - docker-delegate
