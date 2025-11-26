@@ -28,3 +28,9 @@ pipeline:
           runtime:
             type: Docker
             spec: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: testGitHubconnector
+        build: <+input>
+        sparseCheckout: []
