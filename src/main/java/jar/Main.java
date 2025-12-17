@@ -1,5 +1,4 @@
 package jar;
-
 public class Main {
     public static void main(String[] args) {
         int num1 = Integer.parseInt(args[0]);
