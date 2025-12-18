@@ -24,6 +24,14 @@ pipeline:
           deploymentType: Kubernetes
           service:
             serviceRef: mavenjarservice
+            serviceInputs:
+              serviceDefinition:
+                type: Kubernetes
+                spec:
+                  artifacts:
+                    primary:
+                      primaryArtifactRef: <+input>
+                      sources: <+input>
           environment:
             environmentRef: mavenjarenv
             deployToAll: false
