@@ -31,6 +31,7 @@ pipeline:
                   artifacts:
                     primary:
                       primaryArtifactRef: <+input>
+                      sources: <+input>
           environment:
             environmentRef: mavenjarenv
             deployToAll: false
